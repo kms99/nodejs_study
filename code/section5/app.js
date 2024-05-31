@@ -1,19 +1,28 @@
 const http = require("http");
 
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-// 라우팅 시 1번째 인자는 start path
-app.use("/", (req, res, next) => {
-  console.log("---------------------"); // 항상 실행
-  console.log("Always run!!"); // 항상 실행
-  next();
-});
+// 본문처리를 위한 미들웨어
+// bodyparser 패키지의 urlencoded는 마지막에 자동으로 next 실행
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/add-product", (req, res, next) => {
   console.log("middleware 1");
-  res.send("<h1>Add Product!!</h1>"); // 응답 내용을 자동으로 판단해 제공
+  res.send(`
+    <form action="/product" method="POST">
+        <input type="text" name="title"/>
+        <button type="submit">Add Product</button>
+    </form>
+  `);
+});
+
+app.post("/product", (req, res) => {
+  const product = req.body;
+  console.log(product);
+  res.redirect("/");
 });
 
 app.use("/", (req, res, next) => {
