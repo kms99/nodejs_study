@@ -1,5 +1,7 @@
 const path = require("path");
 
+const rootDir = require("./utils/path");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
@@ -17,7 +19,7 @@ app.use(shopRoutes);
 
 //Error 처리
 app.use("/", (req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "not-found.html"));
+  res.status(404).sendFile(path.join(rootDir, "views", "not-found.html"));
 });
 
 app.listen(3000);
