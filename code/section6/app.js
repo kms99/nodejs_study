@@ -13,16 +13,19 @@ const app = express();
 // // views 기본 값은 views (동적 콘텐츠 처리할 파일이 있는 디렉토리)
 // app.set("views", "views");
 
-// handlebar 설정
-app.engine(
-  "handlebars",
-  expressHbs({
-    layoutsDir: "views/layouts",
-    defaultLayout: "main-layout",
-    extname: "handlebars",
-  })
-);
-app.set("view engine", "handlebars");
+// // handlebar 설정
+// app.engine(
+//   "handlebars",
+//   expressHbs({
+//     layoutsDir: "views/layouts",
+//     defaultLayout: "main-layout",
+//     extname: "handlebars",
+//   })
+// );
+// app.set("view engine", "handlebars");
+// app.set("views", "views");
+
+app.set("view engine", "ejs");
 app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
@@ -42,7 +45,7 @@ app.use(shopRoutes);
 //Error 처리
 app.use("/", (req, res, next) => {
   // res.status(404).sendFile(path.join(rootDir, "views", "not-found.html"));
-  res.status(404).render("not-found", { docTitle: "Not Found" });
+  res.status(404).render("not-found", { docTitle: "Not Found", path: null });
 });
 
 app.listen(3000);
