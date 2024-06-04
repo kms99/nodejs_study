@@ -4,10 +4,25 @@ const rootDir = require("./utils/path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const expressHbs = require("express-handlebars");
 
 const app = express();
-app.set("view engine", "pug");
-// views 기본 값은 views (동적 콘텐츠 처리할 파일이 있는 디렉토리)
+
+// // pug 설정
+// app.set("view engine", "pug");
+// // views 기본 값은 views (동적 콘텐츠 처리할 파일이 있는 디렉토리)
+// app.set("views", "views");
+
+// handlebar 설정
+app.engine(
+  "handlebars",
+  expressHbs({
+    layoutsDir: "views/layouts",
+    defaultLayout: "main-layout",
+    extname: "handlebars",
+  })
+);
+app.set("view engine", "handlebars");
 app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");

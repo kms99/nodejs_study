@@ -12,7 +12,14 @@ router.get("/", (req, res, next) => {
   // __dirname 은 현재 파일이 실행되는 폴더를 의미 (routes)
   // res.sendFile(path.join(rootDir, "views", "shop.html"));
   const products = adminData.products;
-  res.render("shop", { prods: products, docTitle: "Shop", path: "/" });
+  res.render("shop", {
+    prods: products,
+    docTitle: "Shop",
+    path: "/",
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true,
+  });
 });
 
 module.exports = router;
